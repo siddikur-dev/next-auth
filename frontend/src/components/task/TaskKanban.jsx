@@ -1,5 +1,5 @@
 import { TASK_STATUS, STATUS_CONFIG } from '../../utils/constants';
-import TaskCard from './TaskCard';
+import TaskCard from '../TaskCard';
 
 export default function TaskKanban({ tasks, onEdit, onDelete, onStatusChange }) {
   const columns = [
