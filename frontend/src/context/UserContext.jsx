@@ -11,9 +11,9 @@ export const useUser = () => {
 };
 
 export const UserProvider = ({ children }) => {
-  // Temporary user - In production, this would come from auth
+  // Temporary user - Replace this _id with your actual user ID from database
   const [user] = useState({
-    _id: '67850d5dac8c0a5e21234567',
+    _id: '67850d5dac8c0a5e21234567', 
     name: 'John Doe',
     email: 'john@example.com',
   });
