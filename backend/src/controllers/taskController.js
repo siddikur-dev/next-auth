@@ -1,6 +1,5 @@
 const Task = require("../models/Task");
 
-// @desc    Get all tasks for a user
 // @route   GET /api/tasks?userId=xxx
 exports.getTasks = async (req, res) => {
   try {
@@ -31,7 +30,6 @@ exports.getTasks = async (req, res) => {
   }
 };
 
-// @desc    Get single task
 // @route   GET /api/tasks/:id
 exports.getTaskById = async (req, res) => {
   try {
@@ -60,7 +58,6 @@ exports.getTaskById = async (req, res) => {
   }
 };
 
-// @desc    Create new task
 // @route   POST /api/tasks
 exports.createTask = async (req, res) => {
   try {
@@ -79,7 +76,7 @@ exports.createTask = async (req, res) => {
   }
 };
 
-// @desc    Update task
+
 // @route   PUT /api/tasks/:id
 exports.updateTask = async (req, res) => {
   try {
@@ -108,7 +105,6 @@ exports.updateTask = async (req, res) => {
   }
 };
 
-// @desc    Delete task
 // @route   DELETE /api/tasks/:id
 exports.deleteTask = async (req, res) => {
   try {
