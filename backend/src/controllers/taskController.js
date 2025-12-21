@@ -1,6 +1,6 @@
 const Task = require("../models/Task");
 
-// @route   GET /api/tasks?userId=xxx
+//GET /api/tasks?userId=xxx
 exports.getTasks = async (req, res) => {
   try {
     const { userId } = req.query;
@@ -30,7 +30,7 @@ exports.getTasks = async (req, res) => {
   }
 };
 
-// @route   GET /api/tasks/:id
+//GET /api/tasks/:id
 exports.getTaskById = async (req, res) => {
   try {
     const task = await Task.findById(req.params.id).populate(
@@ -58,7 +58,7 @@ exports.getTaskById = async (req, res) => {
   }
 };
 
-// @route   POST /api/tasks
+//POST /api/tasks
 exports.createTask = async (req, res) => {
   try {
     const task = await Task.create(req.body);
@@ -77,7 +77,7 @@ exports.createTask = async (req, res) => {
 };
 
 
-// @route   PUT /api/tasks/:id
+//PUT /api/tasks/:id
 exports.updateTask = async (req, res) => {
   try {
     const task = await Task.findByIdAndUpdate(req.params.id, req.body, {
@@ -105,7 +105,7 @@ exports.updateTask = async (req, res) => {
   }
 };
 
-// @route   DELETE /api/tasks/:id
+//DELETE /api/tasks/:id
 exports.deleteTask = async (req, res) => {
   try {
     const task = await Task.findByIdAndDelete(req.params.id);
