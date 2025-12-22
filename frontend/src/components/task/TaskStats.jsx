@@ -1,4 +1,4 @@
-import { CheckCircle, Clock, ListTodo, AlertCircle } from 'lucide-react';
+import { CheckCircle2, Clock, ListTodo, Zap } from 'lucide-react';
 import { getTaskStats } from '../../utils/helpers';
 
 export default function TaskStats({ tasks }) {
@@ -9,40 +9,63 @@ export default function TaskStats({ tasks }) {
       label: 'Total Tasks',
       value: stats.total,
       icon: ListTodo,
-      color: 'bg-blue-100 text-blue-600',
+      color: 'text-blue-600',
+      bg: 'bg-blue-50',
+      border: 'border-blue-100'
     },
     {
       label: 'To Do',
       value: stats.todo,
       icon: Clock,
-      color: 'bg-gray-100 text-gray-600',
+      color: 'text-slate-500',
+      bg: 'bg-slate-50',
+      border: 'border-slate-200'
     },
     {
       label: 'In Progress',
       value: stats.inProgress,
-      icon: Clock,
-      color: 'bg-yellow-100 text-yellow-600',
+      icon: Zap,
+      color: 'text-amber-500',
+      bg: 'bg-amber-50',
+      border: 'border-amber-100'
     },
     {
       label: 'Completed',
       value: stats.done,
-      icon: CheckCircle,
-      color: 'bg-green-100 text-green-600',
+      icon: CheckCircle2,
+      color: 'text-green-600',
+      bg: 'bg-green-50',
+      border: 'border-green-100'
     },
   ];
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
       {statCards.map((stat, index) => (
-        <div key={index} className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+        <div 
+          key={index} 
+          className={`bg-white rounded-2xl p-6 border ${stat.border} shadow-sm hover:shadow-md transition-all duration-300 group`}
+        >
           <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm text-gray-600 mb-1">{stat.label}</p>
-              <p className="text-3xl font-bold text-gray-900">{stat.value}</p>
+            <div className="space-y-1">
+              <p className="text-xs font-bold uppercase tracking-widest text-slate-400">
+                {stat.label}
+              </p>
+              <p className="text-3xl font-black text-slate-900 group-hover:scale-110 transition-transform origin-left">
+                {stat.value}
+              </p>
             </div>
-            <div className={`${stat.color} p-3 rounded-lg`}>
-              <stat.icon className="h-6 w-6" />
+            <div className={`${stat.bg} ${stat.color} p-4 rounded-xl group-hover:rotate-6 transition-transform`}>
+              <stat.icon size={24} strokeWidth={2.5} />
             </div>
+          </div>
+          
+          {/* নিচের ডেকোরেটিভ বার (Optional) */}
+          <div className="mt-4 w-full h-1 bg-slate-100 rounded-full overflow-hidden">
+            <div 
+              className={`h-full ${stat.color.replace('text', 'bg')} transition-all duration-1000`}
+              style={{ width: stats.total > 0 ? `${(stat.value / stats.total) * 100}%` : '0%' }}
+            ></div>
           </div>
         </div>
       ))}
