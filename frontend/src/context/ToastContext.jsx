@@ -17,11 +17,7 @@ export const ToastProvider = ({ children }) => {
   const showToast = (message, type = 'info') => {
     const id = Date.now();
     setToasts((prev) => [...prev, { id, message, type }]);
-
-    // Auto remove after 3 seconds
-    setTimeout(() => {
-      removeToast(id);
-    }, 3000);
+    setTimeout(() => removeToast(id), 3000);
   };
 
   const removeToast = (id) => {
@@ -31,8 +27,6 @@ export const ToastProvider = ({ children }) => {
   return (
     <ToastContext.Provider value={{ showToast }}>
       {children}
-
-      {/* Toast Container */}
       <div className="fixed bottom-4 right-4 z-50 space-y-2">
         {toasts.map((toast) => (
           <Toast
@@ -69,10 +63,7 @@ function Toast({ message, type, onClose }) {
     >
       <Icon className={`h-5 w-5 ${iconColor}`} />
       <p className="flex-1 text-sm font-medium text-gray-800">{message}</p>
-      <button
-        onClick={onClose}
-        className="text-gray-400 hover:text-gray-600 transition-colors"
-      >
+      <button onClick={onClose} className="text-gray-400 hover:text-gray-600">
         <X className="h-4 w-4" />
       </button>
     </div>

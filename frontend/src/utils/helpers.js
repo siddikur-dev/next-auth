@@ -33,9 +33,3 @@ export const getTaskStats = (tasks) => {
     highPriority: tasks.filter((t) => t.priority === 'HIGH').length,
   };
 };
-
-export const getCompletionPercentage = (tasks) => {
-  if (tasks.length === 0) return 0;
-  const completed = tasks.filter((t) => t.status === 'DONE').length;
-  return Math.round((completed / tasks.length) * 100);
-};

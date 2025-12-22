@@ -1,42 +1,28 @@
-
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+import axiosInstance from './axios';
 
 export const taskApi = {
-  // Get all tasks
   getTasks: async (userId) => {
-    const res = await fetch(`${API_URL}/tasks?userId=${userId}`);
-    if (!res.ok) throw new Error('Failed to fetch tasks');
-    return res.json();
+    const { data } = await axiosInstance.get(`/tasks?userId=${userId}`);
+    return data.data;
   },
 
-  // Create task
+  getTask: async (id) => {
+    const { data } = await axiosInstance.get(`/tasks/${id}`);
+    return data.data;
+  },
+
   createTask: async (taskData) => {
-    const res = await fetch(`${API_URL}/tasks`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(taskData),
-    });
-    if (!res.ok) throw new Error('Failed to create task');
-    return res.json();
+    const { data } = await axiosInstance.post('/tasks', taskData);
+    return data.data;
   },
 
-  // Update task
-  updateTask: async (id, taskData) => {
-    const res = await fetch(`${API_URL}/tasks/${id}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(taskData),
-    });
-    if (!res.ok) throw new Error('Failed to update task');
-    return res.json();
+  updateTask: async ({ id, ...taskData }) => {
+    const { data } = await axiosInstance.put(`/tasks/${id}`, taskData);
+    return data.data;
   },
 
-  // Delete task
   deleteTask: async (id) => {
-    const res = await fetch(`${API_URL}/tasks/${id}`, {
-      method: 'DELETE',
-    });
-    if (!res.ok) throw new Error('Failed to delete task');
-    return res.json();
+    const { data } = await axiosInstance.delete(`/tasks/${id}`);
+    return data;
   },
 };
