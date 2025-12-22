@@ -51,7 +51,7 @@ export default function TasksPage() {
   if (error) return <ErrorMessage message={error.message} />;
 
   return (
-    <div className="max-w-[1600px] mx-auto space-y-8 p-4 md:p-8 animate-in fade-in duration-500">
+    <div className="max-w-400 mx-auto space-y-8 p-4 md:p-8 animate-in fade-in duration-500">
       
       {/* 1. Analytics Section */}
       <section>
