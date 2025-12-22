@@ -38,9 +38,7 @@ export default function TasksPage() {
   const handleStatusChange = (taskId, newStatus) => updateTask({ id: taskId, status: newStatus });
   const handleEdit = (taskData) => updateTask(taskData);
   const handleDelete = (taskId) => {
-    if (window.confirm("Are you sure you want to delete this task?")) {
       deleteTask(taskId);
-    }
   };
 
   if (isLoading) return (

@@ -1,60 +1,163 @@
-import React from "react";
+import React, { useState } from "react";
+import {
+  Edit2,
+  Trash2,
+  ChevronDown,
+  Check,
+  Clock,
+  Zap,
+  CheckCircle2,
+} from "lucide-react";
+import Swal from "sweetalert2";
 
-export default function TaskCard({ task, onDelete }) {
-  // স্ট্যাটাস কালার কনফিগ
-  const statusColors = {
-    TODO: "bg-gray-200 text-gray-800",
-    IN_PROGRESS: "bg-blue-200 text-blue-800",
-    DONE: "bg-green-200 text-green-800",
+export default function            TaskCard({ task, onDelete, onStatusChange }) {
+  const [showStatusMenu, setShowStatusMenu] = useState(false);
+
+  // Industry standard config
+  const statusOptions = [
+    {
+      id: "TODO",
+      label: "To Do",
+      color: "text-slate-500",
+      bg: "bg-slate-100",
+      icon: Clock,
+    },
+    {
+      id: "IN_PROGRESS",
+      label: "In Progress",
+      color: "text-blue-600",
+      bg: "bg-blue-50",
+      icon: Zap,
+    },
+    {
+      id: "DONE",
+      label: "Completed",
+      color: "text-green-600",
+      bg: "bg-green-50",
+      icon: CheckCircle2,
+    },
+  ];
+
+  const currentStatus =
+    statusOptions.find((s) => s.id === task.status) || statusOptions[0];
+
+  // priority border
+  const priorityColors = {
+    LOW: "border-l-4 border-emerald-500",
+    MEDIUM: "border-l-4 border-amber-500",
+    HIGH: "border-l-4 border-rose-500",
   };
 
-  // প্রায়োরিটি বর্ডার কালার কনফিগ
-  const priorityColors = {
-    LOW: "border-l-4 border-green-500",
-    MEDIUM: "border-l-4 border-yellow-500",
-    HIGH: "border-l-4 border-red-500",
+  // SweetAlert Delete Confirmation
+  const handleDelete = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#2563eb", // blue-600
+      cancelButtonColor: "#ef4444", // red-500
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        onDelete(task._id);
+        Swal.fire({
+          title: "Deleted!",
+          text: "Task has been removed.",
+          icon: "success",
+          showConfirmButton: false,
+          timer: 1500,
+          customClass: { popup: "rounded-3xl" },
+        });
+      }
+    });
   };
 
   return (
     <div
-      className={`bg-white rounded-lg shadow-md p-4 transition-all ${
-        priorityColors[task.priority] || ""
+      className={`bg-white rounded-2xl shadow-sm border border-slate-300 p-4 transition-all hover:shadow-xl hover:-translate-y-1 relative ${
+        priorityColors[task.priority]
       }`}
     >
-      {/* হেডার: টাইটেল এবং স্ট্যাটাস */}
-      <div className="flex justify-between items-start mb-2 gap-2">
-        <h3 className="text-lg font-semibold text-gray-800 break-words line-clamp-1">
+      <div className="flex justify-between items-start  gap-4">
+        <h3 className="text-lg font-bold text-slate-800 leading-tight">
           {task.title}
         </h3>
-        <span
-          className={`px-2 py-1 rounded text-[10px] font-bold uppercase whitespace-nowrap ${
-            statusColors[task.status] || "bg-gray-100"
-          }`}
-        >
-          {task.status}
-        </span>
+
+        {/* Custom dropdown to status change*/}
+        <div className="relative">
+          <button
+            onClick={() => setShowStatusMenu(!showStatusMenu)}
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl font-bold text-[10px] uppercase tracking-wider transition-all active:scale-95 ${currentStatus.bg} ${currentStatus.color}`}
+          >
+            {task.status}
+            <ChevronDown
+              size={14}
+              className={`transition-transform ${
+                showStatusMenu ? "rotate-180" : ""
+              }`}
+            />
+          </button>
+
+          {showStatusMenu && (
+            <>
+              {/* Clicking on the backdrop will close it */}
+              <div
+                className="fixed inset-0 z-10"
+                onClick={() => setShowStatusMenu(false)}
+              ></div>
+
+              {/* Dropdown Modal */}
+              <div className="absolute right-0 mt-2 w-48 bg-white border border-slate-100 shadow-2xl rounded-2xl p-2 z-20 animate-in fade-in zoom-in duration-200">
+                <p className="text-[10px] font-black text-slate-400 px-3 py-2 uppercase tracking-widest">
+                  Update Status
+                </p>
+                {statusOptions.map((option) => (
+                  <button
+                    key={option.id}
+                    onClick={() => {
+                      onStatusChange(task._id, option.id);
+                      setShowStatusMenu(false);
+                    }}
+                    className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-semibold transition-colors ${
+                      task.status === option.id
+                        ? `${option.bg} ${option.color}`
+                        : "text-slate-600 hover:bg-slate-50"
+                    }`}
+                  >
+                    <div className="flex items-center gap-2">
+                      <option.icon size={16} />
+                      {option.label}
+                    </div>
+                    {task.status === option.id && <Check size={14} />}
+                  </button>
+                ))}
+              </div>
+            </>
+          )}
+        </div>
       </div>
 
-      {/* ডেসক্রিপশন */}
-      {task.description && (
-        <p className="text-gray-600 text-sm mb-4 line-clamp-2 italic">
-          {task.description}
-        </p>
-      )}
+      <p className="text-slate-500 text-sm  line-clamp-2 leading-relaxed">
+        {task.description || "No description provided."}
+      </p>
 
-      {/* ফুটার: প্রায়োরিটি লেবেল এবং ডিলিট বাটন */}
-      <div className="flex justify-between items-center pt-2 border-t border-gray-50">
-        <span className="text-[11px] text-gray-500 font-medium">
-          Priority:{" "}
-          <span className="text-gray-800 uppercase font-bold">
+      <div className="flex justify-between items-center pt-4 border-t border-slate-50">
+        <div className="flex flex-col">
+          <span className="text-[10px] font-black text-slate-400 uppercase tracking-tighter leading-none">
+            Priority
+          </span>
+          <span className="text-xs font-bold text-slate-700">
             {task.priority}
           </span>
-        </span>
+        </div>
+
         <button
-          onClick={() => onDelete(task._id)}
-          className="text-red-500 hover:text-red-700 text-xs font-bold transition-colors uppercase"
+          onClick={handleDelete}
+          className="flex items-center gap-2 px-4 py-2 text-rose-500 hover:bg-rose-50 rounded-xl text-xs font-bold transition-all"
         >
-          Delete
+          <Trash2 size={16} />
+          DELETE
         </button>
       </div>
     </div>

@@ -48,9 +48,7 @@ export default function TaskDashboard({ userId }) {
   };
 
   const handleDelete = (taskId) => {
-    if (window.confirm('Are you sure you want to delete this task?')) {
       deleteTask(taskId);
-    }
   };
 
   // Loading state

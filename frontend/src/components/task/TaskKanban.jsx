@@ -62,7 +62,7 @@ export default function TaskKanban({ tasks, onEdit, onDelete, onStatusChange }) 
                   )}
                 </div>
               ) : (
-                <div className="space-y-4 animate-in fade-in slide-in-from-bottom-2 duration-300">
+                <div className="space-y-2 animate-in fade-in slide-in-from-bottom-2 duration-300">
                   {columnTasks.map((task) => (
                     <TaskCard
                       key={task._id}
