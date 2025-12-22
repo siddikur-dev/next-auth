@@ -92,7 +92,7 @@ export default function TasksPage() {
 
           <Link
             to="/tasks/new"
-            className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-bold shadow-lg shadow-blue-200 transition-all active:scale-95"
+            className="btn"
           >
             <Plus size={20} strokeWidth={3} />
             Create New

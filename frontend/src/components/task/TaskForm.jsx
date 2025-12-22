@@ -125,7 +125,7 @@ export default function TaskForm({ onSubmit, onCancel, initialData, isLoading })
         <button
           type="submit"
           disabled={isLoading}
-          className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-8 py-2.5 rounded-xl font-bold shadow-lg shadow-blue-100 transition-all active:scale-95 disabled:opacity-70 disabled:cursor-not-allowed"
+          className="btn"
         >
           {isLoading ? (
             <>

@@ -12,7 +12,7 @@ export default function Footer() {
           {/* ১. লোগো এবং কপিরাইট */}
           <div className="flex items-center gap-4">
             <Link to="/" className="flex items-center gap-2 group">
-              <div className="bg-blue-600 p-1.5 rounded-lg shadow-sm">
+              <div className="bg-linear-to-r from-blue-300 to-blue-700 p-2 rounded-xl shadow-lg shadow-blue-200 group-hover:rotate-6 transition-transform">
                 <CheckSquare className="h-4 w-4 text-white" />
               </div>
               <span className="text-lg font-bold text-slate-900 tracking-tight">TaskMaster</span>

@@ -55,11 +55,7 @@ export default function TaskKanban({ tasks, onEdit, onDelete, onStatusChange }) 
               {columnTasks.length === 0 ? (
                 <div className="flex flex-col items-center justify-center h-40 border-2 border-dashed border-slate-200 rounded-xl bg-slate-50/50 group hover:border-blue-200 transition-colors">
                   <p className="text-slate-400 text-xs font-medium">No tasks found</p>
-                  {column.key === TASK_STATUS.TODO && (
-                    <button className="mt-2 text-blue-600 text-xs font-bold hover:underline">
-                      + Add Task
-                    </button>
-                  )}
+               
                 </div>
               ) : (
                 <div className="space-y-2 animate-in fade-in slide-in-from-bottom-2 duration-300">

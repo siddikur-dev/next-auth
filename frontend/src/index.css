@@ -3,33 +3,10 @@
 /* Tailwind & Daisy */
 @import "tailwindcss";
 
-@plugin "daisyui" {
-    themes: light --default;
+.btn {
+    @apply w-full sm:w-auto bg-linear-to-r from-blue-300 to-blue-700 px-5 py-3 rounded-xl font-bold shadow-xl flex items-center gap-2 text-white cursor-pointer
 }
 
-@plugin "daisyui/theme" {
-    name: "light";
-    default: true;
-    --color-primary: #2e8b57;
-    --color-secondary: #c8e5d5;
-    --color-warning: #fcb700;
-    --bg-base-100: #fafafa;
-    --bg-base-200: #fff;
-}
-
-@plugin "daisyui/theme" {
-    name: "dark";
-
-    --color-primary: #3d9cf5;
-    --color-secondary: #85c4fc;
-    --color-warning: #78350f;
-    --bg-base-100: #161b20;
-    --bg-base-200: #171c21;
-}
-
-.logo-font {
-    font-family: "Baloo 2", sans-serif;
-}
 
 .heading-font {
     font-family: "Poppins", sans-serif;
@@ -38,39 +15,4 @@
 
 body {
     font-family: "Nunito Sans", sans-serif;
-}
-
-
-/* Cursor wrapper */
-#cursor {
-    position: fixed;
-    top: 0;
-    left: 0;
-    transform: translate(-50%, -50%);
-    width: 10px;
-    /* inner circle size */
-    height: 10px;
-    border-radius: 50%;
-    background-color: wheat;
-    pointer-events: none;
-    z-index: 9999;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-/* Outer border */
-#cursor::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 26px;
-    /* outer circle size */
-    height: 26px;
-    border: 2px solid #2e8b57;
-    /* border-primary */
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
 }
