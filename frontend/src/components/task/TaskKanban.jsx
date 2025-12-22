@@ -1,12 +1,17 @@
-import { TASK_STATUS, STATUS_CONFIG } from '../../utils/constants';
-import TaskCard from '../TaskCard';
-import { MoreHorizontal, Plus } from 'lucide-react';
+import { TASK_STATUS, STATUS_CONFIG } from "../../utils/constants";
+import TaskCard from "../TaskCard";
+import { MoreHorizontal } from "lucide-react";
 
-export default function TaskKanban({ tasks, onEdit, onDelete, onStatusChange }) {
+export default function TaskKanban({
+  tasks,
+  onEdit,
+  onDelete,
+  onStatusChange,
+}) {
   const columns = [
-    { key: TASK_STATUS.TODO, title: 'To Do' },
-    { key: TASK_STATUS.IN_PROGRESS, title: 'In Progress' },
-    { key: TASK_STATUS.DONE, title: 'Completed' },
+    { key: TASK_STATUS.TODO, title: "To Do" },
+    { key: TASK_STATUS.IN_PROGRESS, title: "In Progress" },
+    { key: TASK_STATUS.DONE, title: "Completed" },
   ];
 
   const getTasksByStatus = (status) => {
@@ -20,45 +25,56 @@ export default function TaskKanban({ tasks, onEdit, onDelete, onStatusChange }) 
         const statusConfig = STATUS_CONFIG[column.key];
 
         return (
-          <div 
-            key={column.key} 
-            className="bg-slate-100/50 rounded-2xl p-4 border border-slate-200/60 flex flex-col min-h-[500px]"
+          <div
+            key={column.key}
+            // Keeping the column height fixed at 650px for a clean dashboard look
+            className="bg-slate-100/50 rounded-[2rem] p-5 border border-slate-200/60 flex flex-col h-[650px]"
           >
-            {/* Column Header */}
+            {/* Header section: Always stays at the top */}
             <div className="mb-6">
-              <div className="flex items-center justify-between mb-3">
-                <div className="flex items-center gap-2">
-                  <div className={`w-2.5 h-2.5 rounded-full ${statusConfig.dotColor} shadow-sm`}></div>
-                  <h3 className="text-sm font-extrabold text-slate-800 uppercase tracking-wider">
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-3">
+                  <div
+                    className={`w-3 h-3 rounded-full ${statusConfig.dotColor} shadow-sm`}
+                  ></div>
+                  <h3 className="text-[11px] font-black text-slate-800 uppercase tracking-[0.2em]">
                     {column.title}
                   </h3>
-                  <span className="bg-white px-2 py-0.5 rounded-md border border-slate-200 text-[11px] font-bold text-slate-500 shadow-sm">
+                  <span className="bg-white px-2.5 py-1 rounded-xl border border-slate-200 text-[10px] font-black text-slate-500 shadow-sm">
                     {columnTasks.length}
                   </span>
                 </div>
-                <button className="text-slate-400 hover:text-slate-600 transition-colors">
+                <button className="text-slate-300 hover:text-slate-600 transition-colors">
                   <MoreHorizontal size={18} />
                 </button>
               </div>
 
-              {/* Progress Bar Under Title */}
-              <div className="h-1.5 w-full bg-slate-200 rounded-full overflow-hidden">
+              {/* Progress bar reflects task density in this column */}
+              <div className="h-1.5 w-full bg-slate-200/50 rounded-full overflow-hidden">
                 <div
-                  className={`h-full ${statusConfig.dotColor} transition-all duration-500 ease-out`}
-                  style={{ width: tasks.length > 0 ? `${(columnTasks.length / tasks.length) * 100}%` : '0%' }}
+                  className={`h-full ${statusConfig.dotColor} transition-all duration-700 ease-in-out`}
+                  style={{
+                    width:
+                      tasks.length > 0
+                        ? `${(columnTasks.length / tasks.length) * 100}%`
+                        : "0%",
+                  }}
                 ></div>
               </div>
             </div>
 
-            {/* Column Content / Tasks Container */}
-            <div className="flex-1 space-y-4">
+            {/* Content area: This is the only part that scrolls if tasks overflow */}
+            <div className="flex-1 overflow-y-auto pr-2 custom-scrollbar">
               {columnTasks.length === 0 ? (
-                <div className="flex flex-col items-center justify-center h-40 border-2 border-dashed border-slate-200 rounded-xl bg-slate-50/50 group hover:border-blue-200 transition-colors">
-                  <p className="text-slate-400 text-xs font-medium">No tasks found</p>
-               
+                /* Empty state when there's nothing to show */
+                <div className="flex flex-col items-center justify-center h-40 border-2 border-dashed border-slate-200/80 rounded-[2rem] bg-slate-50/50">
+                  <p className="text-slate-300 text-[10px] font-black uppercase tracking-widest">
+                    Empty
+                  </p>
                 </div>
               ) : (
-                <div className="space-y-2 animate-in fade-in slide-in-from-bottom-2 duration-300">
+                /* List of task cards */
+                <div className="space-y-3 pb-4">
                   {columnTasks.map((task) => (
                     <TaskCard
                       key={task._id}

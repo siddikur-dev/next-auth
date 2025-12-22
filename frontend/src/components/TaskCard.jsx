@@ -108,7 +108,7 @@ export default function TaskCard({ task, onDelete, onStatusChange }) {
         </button>
       </div>
 
-      {/* কাস্টম স্ক্রলবার স্টাইল (Inline Style or Tailwind Class) */}
+      {/* custom scrollbar (Inline Style or Tailwind Class) */}
       <style>{`
         .custom-scrollbar::-webkit-scrollbar {
           width: 4px;
