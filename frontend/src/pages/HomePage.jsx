@@ -96,10 +96,10 @@ export default function HomePage() {
             and achieve your goals with our intuitive task management system.
           </p>
           <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
-            <Link to="/tasks" className="w-full sm:w-auto bg-slate-900 text-white px-8 py-4 rounded-xl font-bold hover:bg-slate-800 transition shadow-xl flex items-center justify-center gap-2">
+            <Link to="/tasks" className="w-full sm:w-auto  bg-linear-to-r from-blue-300 to-blue-700 px-5 py-3 rounded-xl font-bold  shadow-xl flex items-center  gap-2">
               Get Started <ArrowRight size={18} />
             </Link>
-            <Link to="/about" className="w-full sm:w-auto bg-white text-slate-700 border border-slate-200 px-8 py-4 rounded-xl font-bold hover:bg-slate-50 transition shadow-sm">
+            <Link to="/about" className="w-full sm:w-auto bg-white text-slate-700 border border-slate-200 px-5 py-3 rounded-xl font-bold hover:bg-slate-50 transition shadow-sm">
               Learn More
             </Link>
           </div>

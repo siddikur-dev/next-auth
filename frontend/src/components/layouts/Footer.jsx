@@ -1,75 +1,48 @@
 import { Link } from 'react-router';
-import { Github, Twitter, Linkedin } from 'lucide-react';
+import { Github, Twitter, Linkedin, CheckSquare } from 'lucide-react';
 
 export default function Footer() {
+  const currentYear = new Date().getFullYear();
+
   return (
-    <footer className="bg-white border-t border-gray-200 mt-auto">
-      <div className="container mx-auto px-4 max-w-7xl py-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* Brand */}
-          <div>
-            <h3 className="font-bold text-gray-900 mb-2">TaskMaster</h3>
-            <p className="text-sm text-gray-600">
-              Manage your tasks efficiently and boost your productivity.
+    <footer className="bg-white border-t border-slate-100 py-10">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+          
+          {/* ১. লোগো এবং কপিরাইট */}
+          <div className="flex items-center gap-4">
+            <Link to="/" className="flex items-center gap-2 group">
+              <div className="bg-blue-600 p-1.5 rounded-lg shadow-sm">
+                <CheckSquare className="h-4 w-4 text-white" />
+              </div>
+              <span className="text-lg font-bold text-slate-900 tracking-tight">TaskMaster</span>
+            </Link>
+            <span className="hidden md:block h-4 w-[1px] bg-slate-200"></span>
+            <p className="text-xs font-medium text-slate-500">
+              © {currentYear} All rights reserved.
             </p>
           </div>
 
-          {/* Links */}
-          <div>
-            <h3 className="font-semibold text-gray-900 mb-2">Quick Links</h3>
-            <ul className="space-y-2 text-sm">
-              <li>
-                <Link to="/" className="text-gray-600 hover:text-primary-600">
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link to="/tasks" className="text-gray-600 hover:text-primary-600">
-                  Tasks
-                </Link>
-              </li>
-              <li>
-                <Link to="/about" className="text-gray-600 hover:text-primary-600">
-                  About
-                </Link>
-              </li>
-            </ul>
+          {/* ২. কুইক লিংকস */}
+          <div className="flex items-center gap-6">
+            <Link to="/" className="text-sm font-semibold text-slate-600 hover:text-blue-600 transition-colors">Home</Link>
+            <Link to="/tasks" className="text-sm font-semibold text-slate-600 hover:text-blue-600 transition-colors">Tasks</Link>
+            <Link to="/about" className="text-sm font-semibold text-slate-600 hover:text-blue-600 transition-colors">About</Link>
           </div>
 
-          {/* Social */}
-          <div>
-            <h3 className="font-semibold text-gray-900 mb-2">Connect</h3>
-            <div className="flex gap-4">
-              <a
-                href="https://github.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-600 hover:text-primary-600"
-              >
-                <Github className="h-5 w-5" />
-              </a>
-              <a
-                href="https://twitter.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-600 hover:text-primary-600"
-              >
-                <Twitter className="h-5 w-5" />
-              </a>
-              <a
-                href="https://linkedin.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-600 hover:text-primary-600"
-              >
-                <Linkedin className="h-5 w-5" />
-              </a>
-            </div>
+          {/* ৩. সোশ্যাল আইকন */}
+          <div className="flex items-center gap-5">
+            <a href="#" className="text-slate-400 hover:text-slate-900 transition-colors">
+              <Github size={18} />
+            </a>
+            <a href="#" className="text-slate-400 hover:text-slate-900 transition-colors">
+              <Twitter size={18} />
+            </a>
+            <a href="#" className="text-slate-400 hover:text-slate-900 transition-colors">
+              <Linkedin size={18} />
+            </a>
           </div>
-        </div>
 
-        <div className="border-t border-gray-200 mt-8 pt-6 text-center text-sm text-gray-600">
-          <p>&copy; {new Date().getFullYear()} TaskMaster. All rights reserved.</p>
         </div>
       </div>
     </footer>
